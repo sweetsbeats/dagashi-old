@@ -24,6 +24,9 @@ public:
   //Proccess render calls made to the engine
   void render();
 
+  //Run any clean up code, free memory, call deconstructors 
+  void cleanup();
+  
 
   uint16_t get_window_width(){ return WINDOW_WIDTH; }
   uint16_t get_window_height(){ return WINDOW_HEIGHT; }
