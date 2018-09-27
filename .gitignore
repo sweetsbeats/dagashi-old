@@ -1,5 +1,3 @@
 *.sln
-*.hpp~
-*.cpp~
 /x64/*
-.gitignore~
+*~
