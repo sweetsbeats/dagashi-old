@@ -1,3 +1,4 @@
+*.txt~
 *.sln
 *.hpp~
 *.cpp~

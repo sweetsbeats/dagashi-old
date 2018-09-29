@@ -1,0 +1,99 @@
+
+
+
+
+
+heirarchy
+
+game {
+
+     EntityManager {
+          Entities
+     }
+
+     RenderEngine {}
+     ResourceManager {}
+
+}
+
+
+//EXAMPLE OF GAME CLASS STRUCTURE
+
+void Game::update() {
+
+     entity_manager.update();
+
+    render_engine.queue_render( resource_manager.get( ResourceType::Animation,
+						      "player_walk_left") );
+
+}
+
+void Game::render() {
+
+     window.clear(sf::Color::Cyan);    
+     render_engine.render_batch(window); //render the batch
+     window.display();
+}
+
+
+
+//EXAMPLE OF ENTITY CODE
+
+class Entity {
+
+    Enum State {
+        walking_left,
+	walking_right,
+	walking_up,
+	walking_down,
+
+	idle_left,
+	idle_right,
+	idle_up,
+	idle_down
+
+    };
+
+    State state;
+    std::vector<std::string> render_state;
+
+
+    void update() {
+    	state = State::idle_down;
+    }
+
+    void render() {
+        render = true;
+    }
+
+
+};
+
+
+
+
+// SEPARATED RENDERING ENGINE
+
+
+class ResourceID; // Imagine this could determine the ID from a resource manager
+class ResourceManager; //Holds the actual resources and serves them
+      		       //via get calls
+
+class RenderEngine {
+
+     RenderEngine(){}
+     ~RenderEngine(){}
+
+    std::vector<ResourceID> render_queue;
+    ResourceManager* resource_manager;	   //pretend it's set
+    			    
+
+    //Queues a renderable resource to the engine's next render_batch call
+    bool queue_render( ResourceID renderable_res );
+
+    //renders everything in the render_queue then empties it
+    void render_batch(sf::RenderWindow& window);
+
+    void empy_queue();
+
+};
